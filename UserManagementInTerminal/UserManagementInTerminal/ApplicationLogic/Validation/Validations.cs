@@ -4,9 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagementInTerminal.ApplicationLogic.Validation
+namespace AuthenticationWithClie.ApplicationLogic.Validations
 {
-    internal class Validations
+    public static class Validations
     {
+        public static bool IsLengthBetween(string text, int start, int end)
+        {
+            return text.Length >= start && text.Length < end;
+        }
+
+        public static bool Contains(string text, char targetCharacter)
+        {
+            foreach (char character in text)
+            {
+                if (character == targetCharacter)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }
