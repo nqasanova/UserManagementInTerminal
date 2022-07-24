@@ -3,9 +3,9 @@ using System;
 
 namespace AuthenticationWithClie.UI
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to our website!");
             Console.WriteLine();
