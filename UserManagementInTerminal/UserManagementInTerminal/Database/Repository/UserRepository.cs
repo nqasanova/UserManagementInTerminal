@@ -134,7 +134,7 @@ namespace AuthenticationWithClie.Database.Repository
             }
         }
 
-        public static Report AddReport(string reporter, string receiver, string, string text)
+        public static Report AddReport(string reporter, string receiver, string text)
         {
             List<Report> reports = new List<Report>();
             Report report = new Report(reporter, receiver, text);
