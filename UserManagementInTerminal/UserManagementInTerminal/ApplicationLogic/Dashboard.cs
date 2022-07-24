@@ -11,7 +11,7 @@ using UserManagement.Database.Models;
 
 namespace AuthenticationWithClie.ApplicationLogic
 {
-    public static partial class Dashboard
+    public class Dashboard
     {
         public static void AdminPanel(string email)
         {
@@ -39,27 +39,38 @@ namespace AuthenticationWithClie.ApplicationLogic
 
             else if (command == "/update-user")
             {
-                Console.WriteLine("Please enter user's email you want to update : ");
-                string updatedEmail = Console.ReadLine();
-
-                User updatedUser = UserRepository.GetUserByEmail(email);
-
-                if (updatedUser == null)
+                while (true)
                 {
-                    Console.WriteLine("User is not found according to the entered email!");
-                }
+                    Console.WriteLine("Please enter user's email you want to update : ");
+                    string updatedEmail = Console.ReadLine();
 
-                if (updatedUser.Email == email)
-                {
-                    Console.WriteLine("Your email is already an admin!");
-                }
+                    User updatedUser = UserRepository.GetUserByEmail(email);
 
-                else
-                {
-                    if (updatedUser is User)
+                    if (updatedUser == null)
                     {
-                        Admin updateUser = new Admin(UserValidation.GetFirstName(), UserValidation.GetLastName());
-                        UserRepository.UpdateAdmin();
+                        Console.WriteLine("User is not found according to the entered email!");
+                    }
+
+                    else if (updatedUser.Email == email)
+                    {
+                        Console.WriteLine("Your email is already an admin!");
+                    }
+
+                    else
+                    {
+                        if (updatedUser is User)
+                        {
+                            Admin updateUser = new Admin(UserValidation.GetFirstName(), UserValidation.GetLastName());
+                            UserRepository.UpdateAdmin(updatedEmail, updateUser);
+
+                            Console.WriteLine("User is successfully updated!");
+                            break;
+                        }
+
+                        else if (updatedUser is Admin)
+                        {
+                            Console.WriteLine("This email's owner is an admin!");
+                        }
                     }
                 }
             }
@@ -218,11 +229,11 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
             }
 
-            else if (command == "/logout")
+            /*else if (command == "/logout")
             {
                 Program.Main(new string[] { });
                 break;
-            }
+            }*/
 
             else
             {
@@ -230,62 +241,59 @@ namespace AuthenticationWithClie.ApplicationLogic
             }
         }
 
-        public static partial class Dashboard
+        public static void UserPanel(string email)
         {
-            public static void UserPanel()
+            User user = UserRepository.GetUserByEmail(email);
+
+            Console.WriteLine($"User successfully joined : {user.GetInfo()}");
+
+            while (true)
             {
-                User user = UserRepository.GetUserByEmail(email);
+                Console.WriteLine("Available Commands : ");
+                Console.WriteLine("/update-info");
+                Console.WriteLine("/report-user");
+                Console.WriteLine("/logout");
+                string command = Console.ReadLine();
 
-                Console.WriteLine($"User successfully joined : {user.GetInfo()}");
-
-                while (true)
+                if (command == "/update-info")
                 {
-                    Console.WriteLine("Available Commands : ");
-                    Console.WriteLine("/update-info");
-                    Console.WriteLine("/report-user");
-                    Console.WriteLine("/logout");
-                    string command = Console.ReadLine();
-
-                    if (command == "/update-info")
+                    if (user.Email == email)
                     {
-                        if (user.Email == email)
-                        {
-                            User updateUser = new User(UserValidation.GetFirstName(), UserValidation.GetLastName());
-                            UserRepository.UpdateUser(email, updateUser);
-                        }
+                        User updateUser = new User(UserValidation.GetFirstName(), UserValidation.GetLastName());
+                        UserRepository.UpdateUser(email, updateUser);
                     }
+                }
 
-                    else if (command == "/report-user")
+                else if (command == "/report-user")
+                {
+                    Console.WriteLine("Please enter user's email you want to report : ");
+                    string reportEmail = Console.ReadLine();
+
+                    Console.WriteLine("Please enter report : ");
+                    string reportText = Console.ReadLine();
+
+                    User reporter = UserRepository.GetUserByEmail(reportEmail);
+
+                    if (reporter.Email == email)
                     {
-                        Console.WriteLine("Please enter user's email you want to report : ");
-                        string reportEmail = Console.ReadLine();
-
-                        Console.WriteLine("Please enter report : ");
-                        string reportText = Console.ReadLine();
-
-                        User reporter = UserRepository.GetUserByEmail(reportEmail);
-
-                        if (reporter.Email == email)
-                        {
-                            Console.WriteLine("User cannot report himself/herself!");
-                        }
-
-                        else
-                        {
-                            Report report = UserRepository.AddReport(email, reporter.Email, reportText);
-                        }
-                    }
-
-                    else if (command == "/logout")
-                    {
-                        Program.Main(new string[] { });
-                        break;
+                        Console.WriteLine("User cannot report himself/herself!");
                     }
 
                     else
                     {
-                        Console.WriteLine("Command not found!");
+                        Report report = UserRepository.AddReport(email, reporter.Email, reportText);
                     }
+                }
+
+                /*else if (command == "/logout")
+                {
+                    Program.Main(new string[] { });
+                    break;
+                }*/
+
+                else
+                {
+                    Console.WriteLine("Command not found!");
                 }
             }
         }
