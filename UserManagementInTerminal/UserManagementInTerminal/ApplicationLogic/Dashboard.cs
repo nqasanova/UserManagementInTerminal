@@ -4,14 +4,11 @@ using AuthenticationWithClie.Database.Repository;
 using AuthenticationWithClie.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Database.Models;
 
 namespace AuthenticationWithClie.ApplicationLogic
 {
-    public class Dashboard
+    class Dashboard
     {
         public static void AdminPanel(string email)
         {
@@ -229,11 +226,10 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
             }
 
-            /*else if (command == "/logout")
+            else if (command == "/logout")
             {
                 Program.Main(new string[] { });
-                break;
-            }*/
+            }
 
             else
             {
@@ -285,11 +281,11 @@ namespace AuthenticationWithClie.ApplicationLogic
                     }
                 }
 
-                /*else if (command == "/logout")
+                else if (command == "/logout")
                 {
                     Program.Main(new string[] { });
                     break;
-                }*/
+                }
 
                 else
                 {
