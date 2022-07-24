@@ -1,11 +1,6 @@
 ﻿using AuthenticationWithClie.ApplicationLogic.Validations;
 using AuthenticationWithClie.Database.Repository;
 using AuthenticationWithClie.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.ApplicationLogic
 {
@@ -32,7 +27,7 @@ namespace AuthenticationWithClie.ApplicationLogic
             if (
                 UserValidation.IsValidLastName(lastName) &
                 UserValidation.IsValidEmail(email) &
-                //UserValidation.IsValidPassword(password, confirmPassword) &  //&& -> shirt cut circuit
+                //UserValidation.IsValidPassword(password, confirmPassword) &
                 !UserValidation.IsUserExist(email)
                )
             {
@@ -90,7 +85,5 @@ namespace AuthenticationWithClie.ApplicationLogic
                 Console.WriteLine();
             }
         }
-
-
     }
 }
