@@ -1,9 +1,6 @@
-﻿using AuthenticationWithClie.Database.Models;
-using System;
+﻿using System;
+using AuthenticationWithClie.Database.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Database.Models;
 
 namespace AuthenticationWithClie.Database.Repository
@@ -48,17 +45,6 @@ namespace AuthenticationWithClie.Database.Repository
             return user;
         }
 
-        public static User AddUser(User user)
-        {
-            Users.Add(user);
-            return user;
-        }
-
-        public static User AddAdmin(Admin admin)
-        {
-            Users.Add(admin);
-            return admin;
-        }
 
         public static bool IsUserExistsByEmail(string email)
         {
@@ -129,8 +115,9 @@ namespace AuthenticationWithClie.Database.Repository
             foreach (User user in Users)
             {
                 if (user.Email == email)
-                { }
-                Users.Remove(user);
+                {
+                    Users.Remove(user);
+                }
             }
         }
 
@@ -155,11 +142,6 @@ namespace AuthenticationWithClie.Database.Repository
         public static List<User> GetAll()
         {
             return Users;
-        }
-
-        public static int GetUserCount()
-        {
-            return Users.Count;
         }
 
         public static List<Report> GetReports()
