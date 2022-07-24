@@ -10,7 +10,7 @@ namespace AuthenticationWithClie.UI
             Console.WriteLine("Welcome to our website!");
             Console.WriteLine();
 
-            Console.WriteLine("PAvailable Commands :");
+            Console.WriteLine("Available Commands :");
             Console.WriteLine("/register");
             Console.WriteLine("/login");
             Console.WriteLine("/exit");
